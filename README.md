@@ -1,4 +1,4 @@
-# Othello-RL: Transfer Learning — DQN vs PPO
+# Othello-RL: Transfer Learning, DQN vs PPO
 
 Does pretraining a reinforcement-learning agent on a small board help it learn a bigger
 version of the same game faster? This project trains DQN and PPO agents to play Othello
@@ -34,14 +34,14 @@ Full writeup, code, and all experiments: [`notebook.ipynb`](notebook.ipynb).
 **Transfer learning helped DQN, not PPO.** Pretraining on 6×6 then fine-tuning on 8×8 gave
 DQN a **+312 Elo** boost over training from scratch, and let it hit an 80%-win-rate-vs-random
 threshold in 6,144 episodes instead of 10,240 (40% fewer). PPO showed the opposite: transfer
-gave it **‑16 Elo** and no change in episodes-to-threshold — it's already sample-efficient
+gave it **‑16 Elo** and no change in episodes-to-threshold, since it's already sample-efficient
 enough on-policy that the pretrained features added nothing.
 
 ![Training curves](assets/training_curves.png)
 
 **Why the split?** DQN starts from random weights and a cold replay buffer, so a useful
 initialisation matters a lot early on. PPO's on-policy updates already adapt quickly, so
-there's less room for a head start to help — and the plot below shows PPO's fine-tuning
+there's less room for a head start to help, and the plot below shows PPO's fine-tuning
 overwrites more of the transferred weights than DQN's does, consistent with PPO relying on
 its own features rather than the imported ones.
 
@@ -55,7 +55,7 @@ its own features rather than the imported ones.
 
 Transfer agents play an extra 20,000 games on 6×6 (about 12,000 8×8-equivalent games, since
 the smaller board runs ~40% faster per episode). For that overhead, DQN gained +312 Elo and
-PPO lost 16 — transfer learning here is a good deal for one algorithm and a wash for the
+PPO lost 16: transfer learning here is a good deal for one algorithm and a wash for the
 other, not a free win across the board.
 
 ## Repro
